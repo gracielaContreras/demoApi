@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  contextPath: ${spring.application.name}
+  servlet:
+    context-path: ${spring.application.name}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: /api
+  datasource:
+    password: 1
+    url: jdbc:postgresql://localhost:5432/demoApi
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    show-sql: false
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# Configuración de la información personalizada con la versión desde el pom.xml
+info:
+  app:
+    name: @project.name@
+    version: @project.version@
+    description: @project.description@
