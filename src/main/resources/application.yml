@@ -23,6 +23,22 @@ spring:
         format_sql: 'true'
     show-sql: false
 
+url:
+  service:
+    flights: http://localhost:6070/api/flights/catalog/city/{code}
+
+http-connector:
+  hosts:
+    api-catalog:
+      host: http://localhost
+      port: 6070
+      endpoints:
+        get-city:
+          url: "/api/flights/catalog/city/{code}"
+          readTimeout: 1000
+          writeTimeout: 1000
+          connectionTimeout: 1000
+
 management:
   info:
     env:
@@ -31,6 +47,22 @@ management:
     web:
       exposure:
         include: health,info
+# Permite cambiar el path
+#      path-mapping:
+#        health: healthcheck
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          actuate:
+            health: DEBUG
+            endpoint:
+              web:
+                servlet:
+                  WebMvcEndpointHandlerMapping: TRACE
+
 
 # Configuración de la información personalizada con la versión desde el pom.xml
 info:
