@@ -1,6 +1,7 @@
 package com.example.demoApi.controller;
 
 import com.example.demoApi.connector.response.CityDTO;
+import com.example.demoApi.controller.resource.ProductoResource;
 import com.example.demoApi.entity.Producto;
 import com.example.demoApi.services.ProductoService;
 import com.example.demoApi.services.ReservationService;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @Validated
-public class ProductoController {
+public class ProductoController implements ProductoResource {
     @Autowired
     private ProductoService productoService;
     @Autowired
