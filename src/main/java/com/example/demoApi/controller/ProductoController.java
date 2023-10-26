@@ -6,6 +6,8 @@ import com.example.demoApi.entity.Producto;
 import com.example.demoApi.services.ProductoService;
 import com.example.demoApi.services.ReservationService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/")
 @Validated
 public class ProductoController implements ProductoResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
     @Autowired
     private ProductoService productoService;
     @Autowired
@@ -24,10 +27,12 @@ public class ProductoController implements ProductoResource {
 
     @GetMapping
     public ResponseEntity<List<Producto>> getAllProductos(){
+        LOGGER.info("Obtaining all productos");
         return new ResponseEntity<>(productoService.getAllProducto(), HttpStatus.OK);
     }
     @GetMapping("{id}")
     public ResponseEntity<Producto> getProductosId(@PathVariable Integer id) {
+        LOGGER.info("Obtain information from a product with id {}", id);
         return new ResponseEntity<>(productoService.getIdProducto(id), HttpStatus.OK);
     }
 
@@ -43,6 +48,7 @@ public class ProductoController implements ProductoResource {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
+        LOGGER.info("Deleting product with id {}", id);
         productoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
