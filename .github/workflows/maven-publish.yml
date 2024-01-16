@@ -13,5 +13,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Publish package
-        run: mvn --batch-mode deploy
+      - name: Build app
+        run: mvn -B package -DskipTests --file pom.xml
+      - name: Upload JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: target/demoApi-0.0.1-SNAPSHOT.jar
